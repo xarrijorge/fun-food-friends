@@ -138,17 +138,36 @@ button {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   padding: 10px 6px;
 }
-
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 850px) {
   .container {
+    width: 100vw;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
   .add-item {
-    width: auto;
+    width: 55vw;
+    margin-right: 0;
   }
   .display-item {
     width: auto;
+  }
+  input::placeholder {
+    text-transform: lowercase;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    width: 100vw;
+  }
+  ul {
+    display: flex;
+    flex-direction: column;
+  }
+  li {
+    width: 60vw;
+    margin-left: auto;
+    margin-right: 50px;
   }
 }
