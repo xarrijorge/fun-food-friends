@@ -29,6 +29,10 @@ class App extends Component {
       username: '',
     });
   };
+  removeItem = itemId => {
+    const itemRef = firebase.database().ref(`/items/${itemId}`);
+    itemRef.remove();
+  };
 
   componentDidMount() {
     const itemsRef = firebase.database().ref('items');
@@ -82,7 +86,14 @@ class App extends Component {
                 {this.state.items.map(item => {
                   return (
                     <li key={item.id}>
-                      <h3>{item.food}</h3>
+                      <h3>
+                        {item.food}{' '}
+                        <i
+                          onClick={() => this.removeItem(item.Id)}
+                          className="fa fa-times-circle-o close"
+                          aria-hidden="true"
+                        />
+                      </h3>
                       <p>brought by: {item.person}</p>
                     </li>
                   );
