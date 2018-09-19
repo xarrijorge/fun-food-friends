@@ -89,7 +89,7 @@ class App extends Component {
                       <h3>
                         {item.food}{' '}
                         <i
-                          onClick={() => this.removeItem(item.Id)}
+                          onClick={() => this.removeItem(item.id)}
                           className="fa fa-times-circle-o close"
                           aria-hidden="true"
                         />
