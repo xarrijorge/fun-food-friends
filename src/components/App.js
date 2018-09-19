@@ -7,6 +7,7 @@ class App extends Component {
   state = {
     currentItem: '',
     username: '',
+    items: [],
   };
 
   handleChange = e => {
@@ -17,10 +18,10 @@ class App extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const itemRef = firebase.database().ref('items');
+    const itemsRef = firebase.database().ref('items');
     const item = {
-      title: this.state.currentItem,
-      user: this.state.username,
+      food: this.state.currentItem,
+      person: this.state.username,
     };
     itemsRef.push(item);
     this.setState({
@@ -28,6 +29,24 @@ class App extends Component {
       username: '',
     });
   };
+
+  componentDidMount() {
+    const itemsRef = firebase.database().ref('items');
+    itemsRef.on('value', snapshot => {
+      let items = snapshot.val();
+      let newState = [];
+      for (let item in items) {
+        newState.push({
+          id: item,
+          food: items[item].food,
+          person: items[item].person,
+        });
+      }
+      this.setState({
+        items: newState,
+      });
+    });
+  }
   render() {
     return (
       <div className="app">
@@ -59,7 +78,16 @@ class App extends Component {
           </section>
           <section className="display-item">
             <div className="wrapper">
-              <ul />
+              <ul>
+                {this.state.items.map(item => {
+                  return (
+                    <li key={item.id}>
+                      <h3>{item.food}</h3>
+                      <p>brought by: {item.person}</p>
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
           </section>
         </div>
