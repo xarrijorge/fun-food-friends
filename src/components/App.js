@@ -12,7 +12,7 @@ class App extends Component {
 
   handleChange = e => {
     this.setState({
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value.toUpperCase(),
     });
   };
 
@@ -65,6 +65,7 @@ class App extends Component {
             <form onSubmit={this.handleSubmit}>
               <input
                 type="text"
+                required
                 name="username"
                 placeholder="What's your name?"
                 value={this.state.username}
@@ -72,6 +73,7 @@ class App extends Component {
               />
               <input
                 type="text"
+                required
                 name="currentItem"
                 placeholder="What are you bringing?"
                 value={this.state.currentItem}
@@ -86,7 +88,7 @@ class App extends Component {
                 {this.state.items.map(item => {
                   return (
                     <li key={item.id}>
-                      <h3>
+                      <h3 className="item-head">
                         {item.food}{' '}
                         <i
                           onClick={() => this.removeItem(item.id)}
