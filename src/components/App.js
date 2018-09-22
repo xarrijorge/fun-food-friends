@@ -90,7 +90,10 @@ class App extends Component {
         {this.state.user ? (
           <div className="container">
             <div className="user-profile">
-              <img src={this.state.user.photoURL} />
+              <img
+                src={this.state.user.photoURL}
+                alt="google profile of user"
+              />
             </div>
             <section className="add-item">
               <form onSubmit={this.handleSubmit}>
