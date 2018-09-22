@@ -8,6 +8,7 @@ class App extends Component {
     currentItem: '',
     username: '',
     items: [],
+    user: null,
   };
 
   handleChange = e => {
@@ -34,6 +35,12 @@ class App extends Component {
     itemRef.remove();
   };
 
+  login = () => {
+    auth.signInWithPopup(provider).then(result => {
+      this.setState({ user: result.user });
+    });
+  };
+
   componentDidMount() {
     const itemsRef = firebase.database().ref('items');
     itemsRef.on('value', snapshot => {
@@ -58,6 +65,13 @@ class App extends Component {
           <div className="wrapper">
             <h1>Fun Food Friends</h1>
             <i className="fa fa-shopping-basket" aria-hidden="true" />
+          </div>
+          <div className="wrapper">
+            {this.state.user ? (
+              <button onClick={this.logout}>Logout</button>
+            ) : (
+              <button onClick={this.login}>Login</button>
+            )}
           </div>
         </header>
         <div className="container">
